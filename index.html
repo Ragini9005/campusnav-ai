@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CampusNav AI</title>
+
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+body {
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+
+/* HEADER */
+
+header {
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 20px 7%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.logo {
+
+    font-size: 27px;
+
+    font-weight: bold;
+}
+
+
+.tagline {
+
+    margin-top: 5px;
+
+    opacity: 0.9;
+}
+
+
+/* HERO */
+
+.hero {
+
+    text-align: center;
+
+    padding: 45px 20px 30px;
+}
+
+
+.hero h1 {
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+}
+
+
+.hero p {
+
+    color: #64748b;
+
+    font-size: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+/* SEARCH */
+
+.search {
+
+    max-width: 650px;
+
+    margin: auto;
+
+    display: flex;
+
+    gap: 10px;
+}
+
+
+.search input {
+
+    flex: 1;
+
+    padding: 16px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+
+.search button {
+
+    padding: 15px 25px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+.search button:hover {
+
+    background: #1d4ed8;
+}
+
+
+/* MAIN */
+
+.container {
+
+    max-width: 1100px;
+
+    margin: auto;
+
+    padding: 20px;
+}
+
+
+.section-title {
+
+    text-align: center;
+
+    margin: 25px 0;
+}
+
+/* NAVIGATION */
+
+.navigation-box {
+
+    max-width: 850px;
+
+    margin: 25px auto;
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    display: flex;
+
+    gap: 15px;
+
+    align-items: end;
+
+}
+
+
+.select-box {
+
+    flex: 1;
+
+}
+
+
+.select-box label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 8px;
+
+}
+
+
+.select-box select {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    background: white;
+
+}
+
+
+.navigation-box button {
+
+    padding: 14px 20px;
+
+    background: #2563eb;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+}
+
+
+.navigation-box button:hover {
+
+    background: #1d4ed8;
+
+}
+/* MAP */
+
+.map {
+
+    position: relative;
+
+    height: 600px;
+
+    background: #dcfce7;
+
+    border: 4px solid #94a3b8;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* NAVIGATION ROUTE */
+
+#routeLine {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#routePath {
+    filter: drop-shadow(0 0 5px rgba(37, 99, 235, 0.5));
+}
+
+.building {
+    z-index: 3;
+}
+/* ROADS */
+
+.road-horizontal {
+
+    position: absolute;
+
+    height: 55px;
+
+    background: #cbd5e1;
+
+    width: 100%;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+}
+
+
+.road-vertical {
+
+    position: absolute;
+
+    width: 55px;
+
+    background: #cbd5e1;
+
+    height: 100%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+
+
+/* BUILDINGS */
+
+.building {
+
+    position: absolute;
+
+    background: white;
+
+    border: 3px solid #334155;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.building:hover {
+
+    transform: scale(1.05);
+
+}
+
+
+.cse {
+
+    top: 40px;
+
+    left: 37%;
+
+    width: 220px;
+}
+
+
+.library {
+
+    top: 40%;
+
+    left: 5%;
+
+    width: 190px;
+}
+
+
+.admin {
+
+    top: 40%;
+
+    right: 5%;
+
+    width: 190px;
+}
+
+
+.main-block {
+
+    bottom: 40px;
+
+    left: 37%;
+
+    width: 220px;
+}
+
+
+.gate {
+
+    position: absolute;
+
+    bottom: 5px;
+
+    left: 45%;
+
+    background: #16a34a;
+
+    color: white;
+
+    padding: 10px 25px;
+
+    border-radius: 20px;
+
+    font-weight: bold;
+}
+
+
+/* LOCATION DOT */
+
+.dot {
+
+    color: #ef4444;
+
+    font-size: 22px;
+}
+
+
+/* RESULT */
+
+.result {
+
+    display: none;
+
+    background: white;
+
+    padding: 25px;
+
+    margin: 25px auto;
+
+    border-radius: 15px;
+
+    max-width: 700px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+.result h2 {
+
+    color: #2563eb;
+
+    margin-bottom: 10px;
+}
+
+
+.route {
+
+    margin-top: 15px;
+
+    background: #eff6ff;
+
+    padding: 18px;
+
+    border-radius: 10px;
+
+    line-height: 1.8;
+}
+/* NAVIGATION STATS */
+
+.navigation-stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.navigation-stats div {
+    flex: 1;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
+.navigation-stats strong {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.navigation-stats span {
+    color: #2563eb;
+    font-weight: bold;
+}
+/* AI ASSISTANT */
+
+.ai-assistant {
+    max-width: 850px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.10);
+    border: 1px solid #e2e8f0;
+}
+
+.ai-header {
+    font-size: 22px;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.ai-assistant > p {
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.ai-input {
+    display: flex;
+    gap: 10px;
+}
+
+.ai-input input {
+    flex: 1;
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.ai-input button {
+    padding: 14px 22px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.ai-input button:hover {
+    background: #1d4ed8;
+}
+
+.ai-answer {
+    margin-top: 20px;
+    padding: 18px;
+    background: #eff6ff;
+    border-radius: 12px;
+    line-height: 1.6;
+    color: #1e3a8a;
+}
+/* DESTINATIONS */
+
+.cards {
+
+    display: grid;
+
+    grid-template-columns:
+    repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 20px;
+
+    margin-top: 30px;
+}
+
+
+.card {
+
+    background: white;
+
+    padding: 25px;
+
+    text-align: center;
+
+    border-radius: 15px;
+
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+
+.card-icon {
+
+    font-size: 40px;
+
+    margin-bottom: 10px;
+}
+
+
+.card button {
+
+    margin-top: 15px;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+
+
+/* FOOTER */
+
+footer {
+
+    margin-top: 50px;
+
+    background: #1e293b;
+
+    color: white;
+
+    text-align: center;
+
+    padding: 25px;
+}
+
+
+@media(max-width:700px) {
+
+    .map {
+
+        height: 500px;
+    }
+
+    .building {
+
+        transform: scale(0.8);
+    }
+
+    .cse,
+    .main-block {
+
+        left: 30%;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<div>
+
+<div class="logo">
+🧭 CampusNav AI
+</div>
+
+<div class="tagline">
+Your Smart Guide to Campus
+</div>
+
+</div>
+
+</header>
+
+
+
+<section class="hero">
+
+<h1>
+Find Your Way Around Campus
+</h1>
+
+<p>
+Search any campus facility and get directions instantly.
+</p>
+
+
+<div class="navigation-box">
+
+    <div class="select-box">
+
+        <label>📍 Starting Point</label>
+
+        <select id="startLocation">
+
+            <option value="main gate">
+                Main Gate
+            </option>
+
+            <option value="main block">
+                Main Block
+            </option>
+
+            <option value="library">
+                Library
+            </option>
+
+            <option value="cse block">
+                CSE Block
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="select-box">
+
+        <label>🎯 Destination</label>
+
+        <select id="destination">
+
+            <option value="cse lab">
+                CSE Lab
+            </option>
+
+            <option value="library">
+                Library
+            </option>
+
+            <option value="canteen">
+                Canteen
+            </option>
+
+            <option value="principal office">
+                Principal Office
+            </option>
+
+            <option value="main block">
+                Main Block
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <button type="button" onclick="startNavigation()">
+
+    🧭 Start Navigation
+
+</button>
+<button type="button" onclick="clearNavigation()">
+    🔄 Clear
+</button>
+</div>
+<div class="smart-search">
+    <label>🔎 Quick Search</label>
+
+    <input
+        type="text"
+        id="facilitySearch"
+        placeholder="Example: CSE Lab, Library, Canteen..."
+    >
+
+    <button type="button" onclick="searchFacility()">
+        Find Facility
+    </button>
+</div>
+</section>
+
+
+
+<div
+id="result"
+class="result"
+>
+
+<h2 id="resultTitle"></h2>
+
+<p id="resultInfo"></p>
+
+<div
+id="routeInfo"
+class="route"
+></div>
+<div id="navigationStats" class="navigation-stats">
+    <div>
+        <strong>📏 Distance</strong>
+        <span id="distanceInfo">--</span>
+    </div>
+
+    <div>
+        <strong>⏱️ Walking Time</strong>
+        <span id="timeInfo">--</span>
+    </div>
+</div>
+</div>
+
+
+
+<div class="container">
+
+
+<h2 class="section-title">
+🗺️ Interactive Campus Map
+</h2>
+
+
+<div class="map">
+ <svg id="routeLine" viewBox="0 0 1000 600">
+        <polyline
+            id="routePath"
+            points=""
+            fill="none"
+            stroke="#2563eb"
+            stroke-width="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+
+<!-- ROADS -->
+
+<div class="road-horizontal"></div>
+
+<div class="road-vertical"></div>
+
+
+
+<!-- CSE -->
+
+<div
+class="building cse"
+onclick="showLocation('CSE Lab')"
+>
+
+<h3>
+🧪 CSE BLOCK
+</h3>
+
+<p>
+CSE Lab
+</p>
+
+<span class="dot">
+📍
+</span>
+
+</div>
+
+
+
+<!-- LIBRARY -->
+
+<div
+class="building library"
+onclick="showLocation('Library')"
+>
+
+<h3>
+📚 LIBRARY
+</h3>
+
+<p>
+Ground Floor
+</p>
+
+<span class="dot">
+📍
+</span>
+
+</div>
+
+
+
+<!-- ADMIN -->
+
+<div
+class="building admin"
+onclick="showLocation('Principal Office')"
+>
+
+<h3>
+🏢 ADMIN BLOCK
+</h3>
+
+<p>
+Principal Office
+</p>
+
+<span class="dot">
+📍
+</span>
+
+</div>
+
+
+
+<!-- MAIN BLOCK -->
+
+<div
+class="building main-block"
+onclick="showLocation('Main Block')"
+>
+
+<h3>
+🏫 MAIN BLOCK
+</h3>
+
+<p>
+Classrooms
+</p>
+
+<span class="dot">
+📍
+</span>
+
+</div>
+
+
+
+<!-- GATE -->
+
+<div class="gate">
+
+🚪 MAIN GATE
+
+</div>
+
+
+</div>
+
+<!-- AI CAMPUS ASSISTANT -->
+
+<div class="ai-assistant">
+
+    <div class="ai-header">
+        🤖 <strong>CampusNav AI Assistant</strong>
+    </div>
+
+    <p>
+        Ask me where a campus facility is or how to reach it.
+    </p>
+
+    <div class="ai-input">
+
+        <input
+            type="text"
+            id="aiQuestion"
+            placeholder="Example: Where is the CSE Lab?"
+        >
+
+        <button onclick="askCampusAI()">
+            Ask AI
+        </button>
+<button onclick="startVoiceSearch()">
+    🎤 Voice
+</button>
+    </div>
+
+    <div
+        id="aiAnswer"
+        class="ai-answer"
+    >
+        👋 Hi! I can help you find places around campus.
+    </div>
+
+</div>
+<h2 class="section-title">
+
+Popular Destinations
+
+</h2>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<div class="card-icon">
+🧪
+</div>
+
+<h3>
+CSE Lab
+</h3>
+
+<p>
+CSE Block • 1st Floor
+</p>
+
+<button onclick="showLocation('CSE Lab')">
+🧭 Directions
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-icon">
+📚
+</div>
+
+<h3>
+Library
+</h3>
+
+<p>
+Library Block • Ground Floor
+</p>
+
+<button onclick="showLocation('Library')">
+🧭 Directions
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-icon">
+🍴
+</div>
+
+<h3>
+Canteen
+</h3>
+
+<p>
+Main Campus • Ground Floor
+</p>
+
+<button onclick="showLocation('Canteen')">
+🧭 Directions
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="card-icon">
+🏢
+</div>
+
+<h3>
+Principal Office
+</h3>
+
+<p>
+Admin Block • 1st Floor
+</p>
+
+<button onclick="showLocation('Principal Office')">
+🧭 Directions
+</button>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<footer>
+
+<p>
+🧭 CampusNav AI © 2026
+</p>
+
+<p>
+Smart • Simple • Accessible Campus Navigation
+</p>
+
+</footer>
+
+
+
+
+<script>
+
+const locations = {
+
+    "cse lab": {
+        title: "🧪 CSE Laboratory",
+        info: "CSE Block • 1st Floor",
+        route: "🚪 Main Gate → 🏫 Main Block → 🧪 CSE Block → 1st Floor → 🧪 CSE Lab"
+    },
+
+    "library": {
+        title: "📚 Central Library",
+        info: "Library Block • Ground Floor",
+        route: "🚪 Main Gate → 🏫 Main Block → 📚 Library"
+    },
+
+    "canteen": {
+        title: "🍴 Campus Canteen",
+        info: "Main Campus • Ground Floor",
+        route: "🚪 Main Gate → 🏫 Main Block → 🍴 Canteen"
+    },
+
+    "principal office": {
+        title: "🏢 Principal Office",
+        info: "Administrative Block • 1st Floor",
+        route: "🚪 Main Gate → 🏢 Admin Block → 1st Floor → 🏢 Principal Office"
+    },
+
+    "main block": {
+        title: "🏫 Main Block",
+        info: "Main Academic Block",
+        route: "🚪 Main Gate → 🏫 Main Block"
+    }
+
+};
+
+
+/* SHOW LOCATION */
+
+function showLocation(name) {
+
+    let key = name.toLowerCase();
+
+    let location = locations[key];
+
+    if (!location) {
+        return;
+    }
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("resultTitle").innerText =
+        location.title;
+
+    document.getElementById("resultInfo").innerText =
+        location.info;
+
+    document.getElementById("routeInfo").innerText =
+        "🧭 Route: " + location.route;
+// SHOW ROUTE ON MAP
+
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* NAVIGATION */
+
+function startNavigation() {
+
+    const start =
+        document.getElementById("startLocation").value;
+
+    const destination =
+        document.getElementById("destination").value;
+
+    let route = "";
+
+
+    if (start === "main gate" && destination === "cse lab") {
+
+        route =
+            "🚪 Main Gate → 🏫 Main Block → 🧪 CSE Block → 1st Floor → 🧪 CSE Lab";
+
+    }
+
+    else if (start === "main gate" && destination === "library") {
+
+        route =
+            "🚪 Main Gate → 🏫 Main Block → 📚 Library";
+
+    }
+
+    else if (start === "main gate" && destination === "canteen") {
+
+        route =
+            "🚪 Main Gate → 🏫 Main Block → 🍴 Canteen";
+
+    }
+
+    else if (start === "main gate" && destination === "principal office") {
+
+        route =
+            "🚪 Main Gate → 🏢 Admin Block → 1st Floor → 🏢 Principal Office";
+
+    }
+
+    else if (start === "main block" && destination === "cse lab") {
+
+        route =
+            "🏫 Main Block → 🧪 CSE Block → 1st Floor → 🧪 CSE Lab";
+
+    }
+
+    else if (start === "library" && destination === "cse lab") {
+
+        route =
+            "📚 Library → Main Road → 🧪 CSE Block → 1st Floor → 🧪 CSE Lab";
+
+    }
+
+    else {
+
+        route =
+            "📍 " + start +
+            " → Follow the campus route → 🎯 " +
+            destination;
+
+    }
+
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("resultTitle").innerText =
+        "🧭 Navigation Started";
+
+    document.getElementById("resultInfo").innerText =
+        "From: " + start + " → To: " + destination;
+
+    document.getElementById("routeInfo").innerText =
+        "📍 Route:\n\n" + route;
+        // DISTANCE AND WALKING TIME
+
+let distance = "";
+let walkingTime = "";
+
+if (destination === "cse lab") {
+
+    distance = "180 m";
+    walkingTime = "3 min";
+
+}
+
+else if (destination === "library") {
+
+    distance = "120 m";
+    walkingTime = "2 min";
+
+}
+
+else if (destination === "canteen") {
+
+    distance = "100 m";
+    walkingTime = "2 min";
+
+}
+
+else if (destination === "principal office") {
+
+    distance = "220 m";
+    walkingTime = "4 min";
+
+}
+
+else if (destination === "main block") {
+
+    distance = "80 m";
+    walkingTime = "1 min";
+
+}
+
+else {
+
+    distance = "150 m";
+    walkingTime = "3 min";
+
+}
+
+
+document.getElementById("distanceInfo").innerText =
+    distance;
+
+document.getElementById("timeInfo").innerText =
+    walkingTime;
+// SHOW ROUTE ON MAP
+// SHOW ROUTE ON MAP
+
+const routeLine = document.getElementById("routeLine");
+const routePath = document.getElementById("routePath");
+
+routeLine.style.display = "block";
+
+
+if (destination === "cse lab") {
+
+    routePath.setAttribute(
+        "points",
+        "500,560 500,470 500,350 500,250 500,150"
+    );
+
+}
+
+
+else if (destination === "library") {
+
+    routePath.setAttribute(
+        "points",
+        "500,560 500,470 400,400 280,330 140,300"
+    );
+
+}
+
+
+else if (destination === "principal office") {
+
+    routePath.setAttribute(
+        "points",
+        "500,560 500,470 650,400 780,330 860,300"
+    );
+
+}
+
+
+else if (destination === "main block") {
+
+    routePath.setAttribute(
+        "points",
+        "500,560 500,470"
+    );
+
+}
+
+
+else if (destination === "canteen") {
+
+    routePath.setAttribute(
+        "points",
+        "500,560 500,470 600,420"
+    );
+
+}
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+/* AI CAMPUS ASSISTANT */
+
+function askCampusAI() {
+
+    const question =
+        document.getElementById("aiQuestion")
+        .value
+        .toLowerCase()
+        .trim();
+
+    const answer =
+        document.getElementById("aiAnswer");
+const wantsNavigation =
+    question.includes("how do i reach") ||
+    question.includes("how to reach") ||
+    question.includes("navigate") ||
+    question.includes("take me to") ||
+    question.includes("directions");
+
+if (wantsNavigation && question.includes("cse")) {
+    document.getElementById("destination").value = "cse lab";
+    document.getElementById("startLocation").value = "main gate";
+
+    answer.innerText = "🧭 Starting navigation to the CSE Lab...";
+
+    startNavigation();
+    return;
+}
+
+    if (question === "") {
+
+        answer.innerText =
+            "🤔 Please type a question first.";
+
+        return;
+    }
+
+
+    /* CSE LAB */
+
+    if (
+        question.includes("cse") ||
+        question.includes("computer science")
+    ) {
+
+        answer.innerText =
+            "🧪 The CSE Lab is located in the CSE Block on the 1st Floor. " +
+            "You can start from the Main Gate and follow the route to the CSE Block.";
+
+        return;
+    }
+
+
+    /* LIBRARY */
+
+    if (question.includes("library")) {
+
+        answer.innerText =
+            "📚 The Central Library is located in the Library Block on the Ground Floor.";
+
+        return;
+    }
+
+
+    /* PRINCIPAL OFFICE */
+
+    if (
+        question.includes("principal") ||
+        question.includes("principal office")
+    ) {
+
+        answer.innerText =
+            "🏢 The Principal Office is located in the Administrative Block on the 1st Floor.";
+
+        return;
+    }
+
+
+    /* CANTEEN */
+
+    if (question.includes("canteen") ||
+        question.includes("food")) {
+
+        answer.innerText =
+            "🍴 The Campus Canteen is located on the Main Campus at the Ground Floor.";
+
+        return;
+    }
+
+
+    /* MAIN BLOCK */
+
+    if (question.includes("main block") ||
+        question.includes("classroom")) {
+
+        answer.innerText =
+            "🏫 The Main Block contains classrooms and is located near the Main Gate.";
+
+        return;
+    }
+
+
+    /* UNKNOWN QUESTION */
+
+    answer.innerText =
+        "🤖 I can currently help you find the CSE Lab, Library, Canteen, Principal Office, or Main Block.";
+
+}
+function clearNavigation() {
+    document.getElementById("result").style.display = "none";
+    document.getElementById("routeLine").style.display = "none";
+    document.getElementById("aiQuestion").value = "";
+    document.getElementById("aiAnswer").innerText =
+        "👋 Hi! I can help you find places around campus.";
+}
+function searchFacility() {
+    const search = document
+        .getElementById("facilitySearch")
+        .value
+        .toLowerCase()
+        .trim();
+
+    if (search === "") {
+        alert("Please enter a facility name.");
+        return;
+    }
+
+    if (search.includes("cse") ||
+        search.includes("computer")) {
+
+        document.getElementById("destination").value = "cse lab";
+        document.getElementById("startLocation").value = "main gate";
+        startNavigation();
+        return;
+    }
+
+    if (search.includes("library") ||
+        search.includes("book")) {
+
+        document.getElementById("destination").value = "library";
+        document.getElementById("startLocation").value = "main gate";
+        startNavigation();
+        return;
+    }
+
+    if (search.includes("canteen") ||
+        search.includes("food")) {
+
+        document.getElementById("destination").value = "canteen";
+        document.getElementById("startLocation").value = "main gate";
+        startNavigation();
+        return;
+    }
+
+    if (search.includes("principal") ||
+        search.includes("office")) {
+
+        document.getElementById("destination").value = "principal office";
+        document.getElementById("startLocation").value = "main gate";
+        startNavigation();
+        return;
+    }
+
+    if (search.includes("main block") ||
+        search.includes("classroom")) {
+
+        document.getElementById("destination").value = "main block";
+        document.getElementById("startLocation").value = "main gate";
+        startNavigation();
+        return;
+    }
+
+    alert("Sorry, I couldn't find that facility.");
+}
+function startVoiceSearch() {
+    const SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        alert("Voice search is not supported in this browser.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-IN";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        const text = event.results[0][0].transcript;
+
+        document.getElementById("aiQuestion").value = text;
+
+        askCampusAI();
+    };
+
+    recognition.onerror = function() {
+        alert("Could not understand your voice. Please try again.");
+    };
+}
+
+</script>
+</body>
+</html>
